@@ -77,17 +77,30 @@ export default function DashboardPage() {
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center">
-              <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M15 10l4.553-2.069A1 1 0 0121 8.868v6.264a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />
+              <svg
+                className="w-4 h-4 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 10l4.553-2.069A1 1 0 0121 8.868v6.264a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"
+                />
               </svg>
             </div>
-            <span className="font-bold text-gray-900 text-lg">Actor Agency</span>
+            <span className="font-bold text-gray-900 text-lg">
+              Actor Agency
+            </span>
           </div>
 
           <div className="flex items-center gap-4">
             <div className="text-right hidden sm:block">
-              <p className="text-sm font-semibold text-gray-900">{user.fullName}</p>
+              <p className="text-sm font-semibold text-gray-900">
+                {user.fullName}
+              </p>
               <p className="text-xs text-gray-500">{user.email}</p>
             </div>
             <div className="w-9 h-9 rounded-full bg-red-100 flex items-center justify-center">
@@ -119,16 +132,28 @@ export default function DashboardPage() {
         <div className="bg-white border border-red-100 rounded-2xl p-6 shadow-sm">
           <div className="flex items-start gap-4">
             <div className="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center shrink-0">
-              <svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              <svg
+                className="w-5 h-5 text-red-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
               </svg>
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900 mb-1">Important Notice</h3>
+              <h3 className="font-semibold text-gray-900 mb-1">
+                Important Notice
+              </h3>
               <p className="text-gray-600 text-sm leading-relaxed">
-                جلد ہی آپکو اپڈیٹ مل جائے گی via email — ہم نے آپکا data secure کر لیا ہے۔
-                ہمارے sale person آپکو contact کریں گے۔
+                We&apos;ve safely received your information and will send you an
+                email update soon. One of our sales team members will reach out
+                to you shortly.
               </p>
             </div>
           </div>
@@ -137,22 +162,32 @@ export default function DashboardPage() {
         {/* Stats Row */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
-            <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">Account Status</p>
+            <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
+              Account Status
+            </p>
             <div className="flex items-center gap-2">
-              <span className={`inline-block w-2 h-2 rounded-full ${user.isActive ? "bg-green-500" : "bg-gray-300"}`} />
-              <span className="text-lg font-bold text-gray-900">{user.isActive ? "Active" : "Inactive"}</span>
+              <span
+                className={`inline-block w-2 h-2 rounded-full ${user.isActive ? "bg-green-500" : "bg-gray-300"}`}
+              />
+              <span className="text-lg font-bold text-gray-900">
+                {user.isActive ? "Active" : "Inactive"}
+              </span>
             </div>
           </div>
 
           <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
-            <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">Role</p>
+            <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
+              Role
+            </p>
             <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-red-50 text-red-700 text-sm font-semibold">
               {userRole.name}
             </span>
           </div>
 
           <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
-            <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">Member Since</p>
+            <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
+              Member Since
+            </p>
             <p className="text-lg font-bold text-gray-900">{memberSince}</p>
           </div>
         </div>
@@ -160,18 +195,42 @@ export default function DashboardPage() {
         {/* All Roles */}
         <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
           <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            <svg className="w-4 h-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+            <svg
+              className="w-4 h-4 text-red-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"
+              />
             </svg>
             Available Roles
           </h3>
 
           {loadingRoles ? (
             <div className="flex items-center gap-2 text-gray-400 text-sm py-4">
-              <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+              <svg
+                className="animate-spin w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v8H4z"
+                />
               </svg>
               Loading roles...
             </div>
@@ -180,7 +239,10 @@ export default function DashboardPage() {
           ) : (
             <div className="divide-y divide-gray-50">
               {roles.map((role) => (
-                <div key={role.id} className="py-3 flex items-start justify-between gap-4">
+                <div
+                  key={role.id}
+                  className="py-3 flex items-start justify-between gap-4"
+                >
                   <div>
                     <p className="text-sm font-semibold text-gray-900 flex items-center gap-2">
                       {role.name}
@@ -190,7 +252,9 @@ export default function DashboardPage() {
                         </span>
                       )}
                     </p>
-                    <p className="text-xs text-gray-500 mt-0.5">{role.description}</p>
+                    <p className="text-xs text-gray-500 mt-0.5">
+                      {role.description}
+                    </p>
                   </div>
                 </div>
               ))}
