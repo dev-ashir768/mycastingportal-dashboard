@@ -24,20 +24,23 @@ interface User {
 
 export default function DashboardPage() {
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
+
+  const [user] = useState<User | null>(() => {
+    if (typeof window === "undefined") return null;
+    const userData = localStorage.getItem("user");
+    return userData ? (JSON.parse(userData) as User) : null;
+  });
+
   const [roles, setRoles] = useState<Role[]>([]);
   const [loadingRoles, setLoadingRoles] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    const userData = localStorage.getItem("user");
 
-    if (!token || !userData) {
+    if (!token || !user) {
       router.replace("/");
       return;
     }
-
-    setUser(JSON.parse(userData));
 
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
     fetch(`${baseUrl}/v1/admin/roles/`, {
@@ -53,7 +56,7 @@ export default function DashboardPage() {
       })
       .catch(() => {})
       .finally(() => setLoadingRoles(false));
-  }, [router]);
+  }, [router, user]);
 
   function handleLogout() {
     localStorage.removeItem("accessToken");
@@ -120,7 +123,7 @@ export default function DashboardPage() {
 
       <main className="max-w-6xl mx-auto px-6 py-10 space-y-6">
         {/* Welcome Banner */}
-        <div className="bg-gradient-to-r from-red-600 to-red-500 rounded-2xl p-6 text-white shadow-sm">
+        <div className="bg-linear-to-r from-red-600 to-red-500 rounded-2xl p-6 text-white shadow-sm">
           <p className="text-red-100 text-sm font-medium mb-1">Welcome back</p>
           <h2 className="text-3xl font-bold">{user.fullName} 👋</h2>
           <p className="text-red-100 text-sm mt-2">
