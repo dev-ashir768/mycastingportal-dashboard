@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 interface Role {
   id: string;
@@ -76,9 +77,9 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Top Nav */}
-      <header className="bg-white border-b border-gray-100 sticky top-0 z-10">
+      <header className="bg-linear-to-r from-red-600 to-red-500 border-b border-gray-100 sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          {/* <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center">
               <svg
                 className="w-4 h-4 text-white"
@@ -97,14 +98,18 @@ export default function DashboardPage() {
             <span className="font-bold text-gray-900 text-lg">
               Actor Agency
             </span>
+          </div> */}
+
+          <div>
+            <Image src="/logo.png" alt="Logo" width={200} height={100} />
           </div>
 
           <div className="flex items-center gap-4">
             <div className="text-right hidden sm:block">
-              <p className="text-sm font-semibold text-gray-900">
+              <p className="text-sm font-semibold text-white">
                 {user.fullName}
               </p>
-              <p className="text-xs text-gray-500">{user.email}</p>
+              <p className="text-xs text-white">{user.email}</p>
             </div>
             <div className="w-9 h-9 rounded-full bg-red-100 flex items-center justify-center">
               <span className="text-red-600 font-bold text-sm">
@@ -113,7 +118,7 @@ export default function DashboardPage() {
             </div>
             <button
               onClick={handleLogout}
-              className="text-sm text-gray-500 hover:text-red-600 transition-colors font-medium"
+              className="text-sm text-white font-medium cursor-pointer"
             >
               Logout
             </button>
