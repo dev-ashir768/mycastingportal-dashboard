@@ -16,4 +16,4 @@ app.prepare().then(() => {
       dev ? 'development' : process.env.NODE_ENV
     }`
   )
-})
+}) 
