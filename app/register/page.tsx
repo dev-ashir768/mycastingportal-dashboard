@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { Eye, EyeOff, CheckCircle2, ChevronDown } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 type AgeOption = "adult" | "minor" | null;
@@ -20,8 +22,8 @@ function Step1({
 }) {
   return (
     <div className="min-h-screen flex">
-      {/* Left panel */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gray-100 p-14 flex-col justify-center gap-8">
+      {/* Left panel — red gradient */}
+      <div className="hidden lg:flex lg:w-1/2 bg-linear-to-r from-red-600 to-red-500 p-14 flex-col justify-center gap-10">
         <Section
           title="Uniquely You – a true reflection of who you are today"
           body="Your Actors Access profile is everything that makes you unique including headshots, résumé, special skills, and union affiliations."
@@ -41,17 +43,17 @@ function Step1({
       </div>
 
       {/* Right panel */}
-      <div className="flex-1 flex items-center justify-center p-8">
+      <div className="flex-1 flex items-center justify-center p-8 bg-white">
         <div className="w-full max-w-lg">
           <h1 className="text-3xl font-bold text-gray-900 mb-3">
             Register for Actors Access
           </h1>
-          <p className="text-gray-600 mb-6 text-sm leading-relaxed">
+          <p className="text-gray-500 mb-6 text-sm leading-relaxed">
             An Actors Access account is free to create and maintain and must be
             created by the individual or a Parent or Legal Guardian.
           </p>
 
-          <div className="divide-y divide-gray-200 border-t border-b border-gray-200">
+          <div className="divide-y divide-gray-100 border-t border-b border-gray-100">
             <RadioOption
               value="adult"
               selected={selected}
@@ -70,10 +72,10 @@ function Step1({
             onClick={onNext}
             disabled={!selected}
             className={cn(
-              "mt-8 w-full py-3 rounded text-white font-semibold text-base transition-colors",
+              "mt-8 w-full py-3 rounded-md text-white font-semibold text-sm transition-colors",
               selected
-                ? "bg-[#2d2d7b] hover:bg-[#23236a]"
-                : "bg-gray-300 cursor-not-allowed"
+                ? "bg-linear-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 shadow-sm"
+                : "bg-gray-200 text-gray-400 cursor-not-allowed"
             )}
           >
             Next
@@ -97,20 +99,20 @@ function RadioOption({
 }) {
   const isSelected = selected === value;
   return (
-    <label className="flex items-start gap-4 py-5 cursor-pointer">
+    <label className="flex items-start gap-4 py-5 cursor-pointer group">
       <div className="mt-0.5 flex-shrink-0">
         <div
           className={cn(
-            "w-5 h-5 rounded-full border-2 flex items-center justify-center",
-            isSelected ? "border-blue-500" : "border-gray-400"
+            "w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors",
+            isSelected ? "border-red-500" : "border-gray-300 group-hover:border-red-300"
           )}
         >
           {isSelected && (
-            <div className="w-2.5 h-2.5 rounded-full bg-blue-500" />
+            <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
           )}
         </div>
       </div>
-      <span className="text-gray-800 text-sm leading-snug">{label}</span>
+      <span className="text-gray-700 text-sm leading-snug">{label}</span>
       <input
         type="radio"
         className="sr-only"
@@ -124,8 +126,8 @@ function RadioOption({
 function Section({ title, body }: { title: string; body: string }) {
   return (
     <div>
-      <h2 className="font-bold text-gray-900 text-base mb-1">{title}</h2>
-      <p className="text-gray-600 text-sm leading-relaxed">{body}</p>
+      <h2 className="font-bold text-white text-base mb-1.5">{title}</h2>
+      <p className="text-red-100 text-sm leading-relaxed">{body}</p>
     </div>
   );
 }
@@ -146,12 +148,12 @@ function Step2({
   const canContinue = name.trim() && email.trim() && signature.trim();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white p-6">
-      <div className="w-full max-w-xl">
-        <h1 className="text-2xl font-bold text-gray-900 mb-3">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
+      <div className="w-full max-w-xl bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">
           Parent / Legal Guardian Agreement
         </h1>
-        <p className="text-gray-700 text-sm mb-8 leading-relaxed">
+        <p className="text-gray-500 text-sm mb-8 leading-relaxed">
           As the Parent or Legal Guardian of a minor child:
           <br />
           You are consenting to the creation of this account on behalf of a
@@ -163,27 +165,24 @@ function Step2({
             label="Parent / Guardian (Full Legal Name)"
             value={name}
             onChange={setName}
-            placeholder=""
           />
           <FormField
             label="Parent / Guardian Email"
             value={email}
             onChange={setEmail}
-            placeholder=""
             type="email"
           />
           <FormField
             label="Parent / Guardian Electronic Signature (Full Legal Name as above)"
             value={signature}
             onChange={setSignature}
-            placeholder=""
           />
         </div>
 
-        <div className="flex gap-4 mt-8">
+        <div className="flex gap-3 mt-8">
           <button
             onClick={onBack}
-            className="flex-1 py-3 rounded border border-blue-500 text-blue-600 font-semibold hover:bg-blue-50 transition-colors"
+            className="flex-1 py-2.5 rounded-md border border-red-500 text-red-600 text-sm font-semibold hover:bg-red-50 transition-colors"
           >
             Back
           </button>
@@ -191,10 +190,10 @@ function Step2({
             onClick={onNext}
             disabled={!canContinue}
             className={cn(
-              "flex-1 py-3 rounded text-white font-semibold transition-colors",
+              "flex-1 py-2.5 rounded-md text-white text-sm font-semibold transition-colors",
               canContinue
-                ? "bg-[#2d2d7b] hover:bg-[#23236a]"
-                : "bg-gray-300 cursor-not-allowed"
+                ? "bg-linear-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 shadow-sm"
+                : "bg-gray-200 text-gray-400 cursor-not-allowed"
             )}
           >
             Save &amp; Continue
@@ -209,24 +208,23 @@ function FormField({
   label,
   value,
   onChange,
-  placeholder,
   type = "text",
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
-  placeholder: string;
   type?: string;
 }) {
   return (
     <div>
-      <label className="block text-sm text-gray-700 mb-1.5">{label}</label>
+      <label className="block text-sm font-medium text-gray-700 mb-1.5">
+        {label}
+      </label>
       <input
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
-        className="w-full border border-gray-300 rounded px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="w-full border border-gray-200 rounded-md px-3 py-2.5 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent transition"
       />
     </div>
   );
@@ -238,17 +236,16 @@ const US_STATES = [
   "Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut",
   "Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa",
   "Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan",
-  "Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire",
-  "New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio",
-  "Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota",
-  "Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia",
-  "Wisconsin","Wyoming",
+  "Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada",
+  "New Hampshire","New Jersey","New Mexico","New York","North Carolina",
+  "North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island",
+  "South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont",
+  "Virginia","Washington","West Virginia","Wisconsin","Wyoming",
 ];
 
 const COUNTRIES = [
   "United States","Canada","United Kingdom","Australia","Germany","France",
-  "Spain","Italy","Mexico","Brazil","Japan","China","India","South Korea",
-  "Other",
+  "Spain","Italy","Mexico","Brazil","Japan","China","India","South Korea","Other",
 ];
 
 function getPasswordStrength(password: string): number {
@@ -263,7 +260,12 @@ function getPasswordStrength(password: string): number {
 
 function PasswordStrengthBar({ password }: { password: string }) {
   const strength = getPasswordStrength(password);
-  const colors = ["bg-gray-200", "bg-red-400", "bg-yellow-400", "bg-blue-400", "bg-green-500"];
+  const barColors = [
+    "bg-red-400",
+    "bg-orange-400",
+    "bg-yellow-400",
+    "bg-green-500",
+  ];
   const labels = ["", "Weak", "Fair", "Good", "Strong"];
 
   return (
@@ -274,14 +276,21 @@ function PasswordStrengthBar({ password }: { password: string }) {
             key={i}
             className={cn(
               "flex-1 rounded-full transition-colors",
-              strength >= i ? colors[strength] : "bg-gray-200"
+              password.length > 0 && strength >= i
+                ? barColors[strength - 1]
+                : "bg-gray-200"
             )}
           />
         ))}
       </div>
-      <div className="flex justify-between mt-1">
-        <p className="text-xs text-gray-500">Password strength: {labels[strength]}</p>
-        <p className="text-xs text-gray-500">8-character minimum</p>
+      <div className="flex justify-between mt-1.5">
+        <p className="text-xs text-gray-500">
+          Password strength:{" "}
+          {password.length > 0 && (
+            <span className="font-medium text-gray-700">{labels[strength]}</span>
+          )}
+        </p>
+        <p className="text-xs text-gray-400">8-character minimum</p>
       </div>
     </div>
   );
@@ -320,73 +329,63 @@ function Step3({ onNext }: { onNext: () => void }) {
     form.password.length >= 8 &&
     agreed;
 
+  const inputClass =
+    "w-full border border-gray-200 rounded-md px-3 py-2.5 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent transition";
+
   return (
-    <div className="min-h-screen flex items-start justify-center bg-white p-6 pt-12">
-      <div className="w-full max-w-2xl">
+    <div className="min-h-screen bg-gray-50 py-12 px-6">
+      <div className="w-full max-w-2xl mx-auto bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
         <h1 className="text-2xl font-bold text-gray-900 mb-1">
           Complete all fields with minor&apos;s information.
         </h1>
         <p className="text-sm text-gray-500 mb-8">
-          Enter your professional name
-          <br />
-          <span className="text-gray-400">
+          Enter your professional name &mdash;{" "}
+          <span className="text-gray-400 text-xs">
             (If you have a mononym, enter it in the first name field)
           </span>
         </p>
 
-        <div className="space-y-6">
+        <div className="space-y-5">
           {/* Name row */}
-          <div className="grid grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm text-gray-700 mb-1.5">
-                First Name
-              </label>
-              <input
-                type="text"
-                value={form.firstName}
-                onChange={(e) => set("firstName")(e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-            </div>
-            <div>
-              <label className="block text-sm text-gray-700 mb-1.5">
-                Middle Name
-              </label>
-              <input
-                type="text"
-                value={form.middleName}
-                onChange={(e) => set("middleName")(e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-            </div>
-            <div>
-              <label className="block text-sm text-gray-700 mb-1.5">
-                Last Name
-              </label>
-              <input
-                type="text"
-                value={form.lastName}
-                onChange={(e) => set("lastName")(e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-            </div>
+          <div className="grid grid-cols-3 gap-3">
+            {(
+              [
+                ["firstName", "First Name"],
+                ["middleName", "Middle Name"],
+                ["lastName", "Last Name"],
+              ] as const
+            ).map(([key, lbl]) => (
+              <div key={key}>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  {lbl}
+                </label>
+                <input
+                  type="text"
+                  value={form[key]}
+                  onChange={(e) => set(key)(e.target.value)}
+                  className={inputClass}
+                />
+              </div>
+            ))}
           </div>
 
           {/* Email */}
           <div>
-            <label className="block text-sm text-gray-700 mb-1.5">Email</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              Email
+            </label>
             <input
               type="email"
               value={form.email}
               onChange={(e) => set("email")(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className={inputClass}
             />
           </div>
 
           {/* Country + State */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Country
               </label>
               <div className="relative">
@@ -396,7 +395,7 @@ function Step3({ onNext }: { onNext: () => void }) {
                     set("country")(e.target.value);
                     set("state")("");
                   }}
-                  className="w-full border border-gray-300 rounded px-3 py-2.5 text-sm appearance-none bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className={cn(inputClass, "appearance-none pr-9")}
                 >
                   <option value="">Select Country</option>
                   {COUNTRIES.map((c) => (
@@ -405,11 +404,11 @@ function Step3({ onNext }: { onNext: () => void }) {
                     </option>
                   ))}
                 </select>
-                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
               </div>
             </div>
             <div>
-              <label className="block text-sm text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 State/Province
               </label>
               {needsStateDropdown ? (
@@ -417,7 +416,7 @@ function Step3({ onNext }: { onNext: () => void }) {
                   <select
                     value={form.state}
                     onChange={(e) => set("state")(e.target.value)}
-                    className="w-full border border-gray-300 rounded px-3 py-2.5 text-sm appearance-none bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className={cn(inputClass, "appearance-none pr-9")}
                   >
                     <option value="">Select State</option>
                     {US_STATES.map((s) => (
@@ -426,7 +425,7 @@ function Step3({ onNext }: { onNext: () => void }) {
                       </option>
                     ))}
                   </select>
-                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                 </div>
               ) : (
                 <input
@@ -435,52 +434,57 @@ function Step3({ onNext }: { onNext: () => void }) {
                   onChange={(e) => set("state")(e.target.value)}
                   placeholder="Non US State/Canadian Province"
                   disabled={!form.country}
-                  className="w-full border border-gray-300 rounded px-3 py-2.5 text-sm text-gray-500 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:opacity-50"
+                  className={cn(
+                    inputClass,
+                    "placeholder:text-gray-300 disabled:bg-gray-50 disabled:text-gray-300"
+                  )}
                 />
               )}
             </div>
           </div>
 
           {/* City + Postal Code */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm text-gray-700 mb-1.5">City</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                City
+              </label>
               <input
                 type="text"
                 value={form.city}
                 onChange={(e) => set("city")(e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className={inputClass}
               />
             </div>
             <div>
-              <label className="block text-sm text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Postal Code
               </label>
               <input
                 type="text"
                 value={form.postalCode}
                 onChange={(e) => set("postalCode")(e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className={inputClass}
               />
             </div>
           </div>
 
           {/* Username */}
           <div>
-            <label className="block text-sm text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">
               Username
             </label>
             <input
               type="text"
               value={form.username}
               onChange={(e) => set("username")(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className={inputClass}
             />
           </div>
 
           {/* Password */}
           <div>
-            <label className="block text-sm text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">
               Password
             </label>
             <div className="relative">
@@ -488,17 +492,17 @@ function Step3({ onNext }: { onNext: () => void }) {
                 type={showPassword ? "text" : "password"}
                 value={form.password}
                 onChange={(e) => set("password")(e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className={cn(inputClass, "pr-10")}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword((v) => !v)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-blue-400 hover:text-blue-600"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-red-400 hover:text-red-600 transition-colors"
               >
                 {showPassword ? (
-                  <EyeOff className="w-5 h-5" />
+                  <EyeOff className="w-4 h-4" />
                 ) : (
-                  <Eye className="w-5 h-5" />
+                  <Eye className="w-4 h-4" />
                 )}
               </button>
             </div>
@@ -511,31 +515,24 @@ function Step3({ onNext }: { onNext: () => void }) {
               type="checkbox"
               checked={agreed}
               onChange={(e) => setAgreed(e.target.checked)}
-              className="w-4 h-4 rounded border-gray-300 accent-[#2d2d7b]"
+              className="w-4 h-4 rounded border-gray-300 accent-red-600"
             />
-            <span className="text-sm text-gray-700">
+            <span className="text-sm text-gray-600">
               I agree to the{" "}
-              <span className="text-blue-600 font-medium cursor-pointer hover:underline">
+              <span className="text-red-600 font-medium hover:underline cursor-pointer">
                 Terms of Use
               </span>
             </span>
           </label>
 
           {/* reCAPTCHA placeholder */}
-          <div className="border border-gray-300 rounded bg-gray-50 w-72 h-[78px] flex items-center gap-4 px-4">
-            <div className="w-6 h-6 border-2 border-gray-400 rounded flex-shrink-0" />
-            <span className="text-sm text-gray-700">I&apos;m not a robot</span>
-            <div className="ml-auto flex flex-col items-center">
-              <div className="w-8 h-8 flex items-center justify-center">
-                <svg viewBox="0 0 64 64" className="w-8 h-8" fill="none">
-                  <path
-                    d="M32 4C16.536 4 4 16.536 4 32s12.536 28 28 28 28-12.536 28-28S47.464 4 32 4z"
-                    fill="#4A90D9"
-                  />
-                  <path
-                    d="M32 12c-11.046 0-20 8.954-20 20s8.954 20 20 20 20-8.954 20-20-8.954-20-20-20z"
-                    fill="#fff"
-                  />
+          <div className="border border-gray-200 rounded-md bg-gray-50 w-72 h-[78px] flex items-center gap-4 px-4">
+            <div className="w-6 h-6 border-2 border-gray-300 rounded flex-shrink-0" />
+            <span className="text-sm text-gray-600">I&apos;m not a robot</span>
+            <div className="ml-auto flex flex-col items-center gap-0.5">
+              <div className="w-8 h-8 rounded-full bg-linear-to-br from-red-400 to-red-600 flex items-center justify-center">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" />
                 </svg>
               </div>
               <span className="text-[9px] text-gray-400 leading-tight">
@@ -549,10 +546,10 @@ function Step3({ onNext }: { onNext: () => void }) {
             onClick={onNext}
             disabled={!canContinue}
             className={cn(
-              "w-full py-3.5 rounded text-white font-semibold text-base transition-colors",
+              "w-full py-3 rounded-md text-white text-sm font-semibold transition-colors",
               canContinue
-                ? "bg-[#2d2d7b] hover:bg-[#23236a]"
-                : "bg-gray-300 cursor-not-allowed"
+                ? "bg-linear-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 shadow-sm"
+                : "bg-gray-200 text-gray-400 cursor-not-allowed"
             )}
           >
             Save &amp; Continue
@@ -575,94 +572,86 @@ const starterFeatures = [
   "A single, shared profile used by all your Talent Representatives",
   "Access to your Eco Cast Self-Tapes, Eco Cast Live Invitations, Secure Sides, and other audition updates",
   "The ability to purchase optional marketing material (additional photos, SlateShots, performance media)",
-  "Talent Representative Media Storage - all purchased marketing material is available for your Talent Representative to use when responding to projects and roles",
+  "Talent Representative Media Storage — all purchased marketing material is available for your Talent Representative to use when responding to projects and roles",
   "Access to the iOS App",
 ];
 
 const plusFeatures = [
-  "All the benefits of Actors Access Starter plus...",
+  "All the benefits of Actors Access Starter plus…",
   "The ability to respond to ALL projects and roles released on Actors Access with your full profile (as outlined in your Starter membership)",
-  "Actors Access Media - include any media from your Talent Representative Media Storage when responding to projects and roles",
+  "Actors Access Media — include any media from your Talent Representative Media Storage when responding to projects and roles",
   "Full access to the iOS App",
 ];
 
 function Step4({ onNext }: { onNext: () => void }) {
   return (
-    <div className="min-h-screen bg-white px-6 py-12">
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-2xl font-bold tracking-wide text-gray-900 mb-4 uppercase">
-          Actors Access Memberships
-        </h1>
-        <p className="text-sm text-gray-700 leading-relaxed mb-8">
-          Your <strong>Actors Access</strong> profile is the industry standard
-          for professional Actors. Free to create and maintain, this is what
-          Casting sees when viewing submissions from Talent Representatives or
-          directly from you.
-        </p>
-
-        <hr className="border-gray-200 mb-6" />
-
-        {/* Starter */}
-        <p className="text-sm font-semibold text-gray-800 mb-3 uppercase tracking-wide">
-          Your <strong>Actors Access Starter</strong> Membership Includes:
-        </p>
-        <ul className="space-y-2.5 mb-10">
-          {starterFeatures.map((f, i) => (
-            <li key={i} className="flex items-start gap-3">
-              <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-              <span
-                className="text-sm text-gray-700 leading-snug"
-                dangerouslySetInnerHTML={{
-                  __html: f
-                    .replace("Talent Representative Media Storage", "<strong>Talent Representative Media Storage</strong>")
-                    .replace("Actors Access", "<strong>Actors Access</strong>"),
-                }}
-              />
-            </li>
-          ))}
-        </ul>
-
-        <hr className="border-gray-200 mb-6" />
-
-        {/* Plus */}
-        <div className="mb-6 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
-          <span className="text-[#e07b20] font-bold text-lg italic tracking-tight">
-            actors access<span className="text-[#2d2d7b]">+</span>
-          </span>
-          <span className="text-gray-900 font-bold text-lg">
-            $68.00/yr{" "}
-            <span className="font-normal text-gray-500 text-base">or</span>{" "}
-            $9.99/mo
-          </span>
+    <div className="min-h-screen bg-gray-50 py-12 px-6">
+      <div className="max-w-3xl mx-auto space-y-6">
+        {/* Header banner */}
+        <div className="bg-linear-to-r from-red-600 to-red-500 rounded-2xl p-6 text-white shadow-sm">
+          <p className="text-red-100 text-xs font-medium uppercase tracking-wide mb-1">
+            Membership
+          </p>
+          <h1 className="text-2xl font-bold">Actors Access Memberships</h1>
+          <p className="text-red-100 text-sm mt-2 leading-relaxed">
+            Your profile is the industry standard for professional Actors. Free
+            to create and maintain — this is what Casting sees when viewing
+            submissions from Talent Representatives or directly from you.
+          </p>
         </div>
 
-        <p className="text-sm font-semibold text-gray-800 mb-3 uppercase tracking-wide">
-          Upgrade to <strong>Actors Access Plus</strong> To Get:
-        </p>
-        <ul className="space-y-2.5 mb-10">
-          {plusFeatures.map((f, i) => (
-            <li key={i} className="flex items-start gap-3">
-              <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-              <span
-                className="text-sm text-gray-700 leading-snug"
-                dangerouslySetInnerHTML={{
-                  __html: f
-                    .replace(/Actors Access Starter/g, "<strong>Actors Access Starter</strong>")
-                    .replace(/Actors Access Media/g, "<strong>Actors Access Media</strong>")
-                    .replace(/Actors Access/g, "<strong>Actors Access</strong>")
-                    .replace(/Talent Representative Media Storage/g, "<strong>Talent Representative Media Storage</strong>")
-                    .replace(/Starter/g, "<strong>Starter</strong>"),
-                }}
-              />
-            </li>
-          ))}
-        </ul>
+        {/* Starter card */}
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-red-50 text-red-700 text-xs font-semibold uppercase tracking-wide">
+              Starter — Free
+            </span>
+          </div>
+          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
+            Your Actors Access Starter Membership Includes:
+          </p>
+          <ul className="space-y-2.5">
+            {starterFeatures.map((f, i) => (
+              <li key={i} className="flex items-start gap-3">
+                <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-gray-700 leading-snug">{f}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-        <hr className="border-gray-200 mb-6" />
+        {/* Plus card */}
+        <div className="bg-white rounded-2xl border border-red-100 shadow-sm p-6">
+          <div className="flex flex-wrap items-center gap-3 mb-4">
+            <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-red-600 text-white text-xs font-semibold uppercase tracking-wide">
+              Actors Access+
+            </span>
+            <span className="text-gray-900 font-bold text-base">
+              $68.00
+              <span className="text-gray-400 font-normal text-sm">/yr</span>
+              <span className="text-gray-400 font-normal text-sm mx-1.5">
+                or
+              </span>
+              $9.99
+              <span className="text-gray-400 font-normal text-sm">/mo</span>
+            </span>
+          </div>
+          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
+            Upgrade to Actors Access Plus to Get:
+          </p>
+          <ul className="space-y-2.5">
+            {plusFeatures.map((f, i) => (
+              <li key={i} className="flex items-start gap-3">
+                <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-gray-700 leading-snug">{f}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
         <button
           onClick={onNext}
-          className="bg-[#2d2d7b] hover:bg-[#23236a] text-white font-semibold px-10 py-3 rounded transition-colors"
+          className="bg-linear-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white font-semibold px-8 py-3 rounded-md shadow-sm transition-colors text-sm"
         >
           Next
         </button>
@@ -671,28 +660,51 @@ function Step4({ onNext }: { onNext: () => void }) {
   );
 }
 
-// ─── Main orchestrator ────────────────────────────────────────────────────────
+// ─── Navbar ───────────────────────────────────────────────────────────────────
+
+function Navbar() {
+  return (
+    <header className="bg-linear-to-r from-red-600 to-red-500 sticky top-0 z-20 shadow-sm">
+      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <Link href="/">
+          <Image src="/logo.png" alt="Logo" width={160} height={80} priority />
+        </Link>
+        <nav className="flex items-center gap-6">
+          <Link
+            href="/"
+            className="text-red-100 hover:text-white text-sm font-medium transition-colors"
+          >
+            Home
+          </Link>
+          <Link
+            href="/"
+            className="text-white text-sm font-semibold border border-white/40 rounded-md px-4 py-1.5 hover:bg-white/10 transition-colors"
+          >
+            Sign In
+          </Link>
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+// ─── Main ─────────────────────────────────────────────────────────────────────
 
 export default function RegisterPage() {
   const [step, setStep] = useState<Step>(1);
   const [ageOption, setAgeOption] = useState<AgeOption>(null);
 
-  const handleStep1Next = () => {
-    if (!ageOption) return;
-    if (ageOption === "minor") {
-      setStep(2);
-    } else {
-      setStep(3);
-    }
-  };
-
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
       {step === 1 && (
         <Step1
           selected={ageOption}
           onSelect={setAgeOption}
-          onNext={handleStep1Next}
+          onNext={() => {
+            if (!ageOption) return;
+            setStep(ageOption === "minor" ? 2 : 3);
+          }}
         />
       )}
       {step === 2 && (
@@ -700,6 +712,6 @@ export default function RegisterPage() {
       )}
       {step === 3 && <Step3 onNext={() => setStep(4)} />}
       {step === 4 && <Step4 onNext={() => alert("Registration complete!")} />}
-    </>
+    </div>
   );
 }
